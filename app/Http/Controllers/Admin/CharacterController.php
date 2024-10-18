@@ -1,0 +1,90 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\Character;
+use Illuminate\Http\Request;
+
+class CharacterController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     */
+    public function index()
+    {
+        $characters = Character::all();
+        return view('admin.characters.index', compact('characters'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     */
+    public function create()
+    {
+        return view('admin.characters.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+    //  * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $data = $request->all();
+        $character = new Character;
+        $character->fill($data);
+        $character->save();
+        return redirect()->route('characters.show', $character);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Character  $character
+     */
+    public function show(Character $character)
+    {
+        return view('admin.characters.show', compact('character'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Character  $character
+    //  * @return \Illuminate\Http\Response
+     */
+    public function edit(Character $character)
+    {
+        return view('admin.characters.edit', compact('character'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Character  $character
+    //  * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Character $character)
+    {
+        $character->update($request->all());
+        return redirect()->route('characters.show', $character);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Character  $character
+    //  * @return \Illuminate\Http\Response
+     */
+    public function destroy(Character $character)
+    {
+        $character->delete();
+        return redirect()->route('characters.index');
+    }
+}
