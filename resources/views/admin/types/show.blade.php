@@ -26,3 +26,12 @@
         {{-- <a href="{{ route('types.edit', $type) }}" class="btn btn-warning">Modifica</a> --}}
     </div>
 @endsection
+
+
+@section('css')
+    <style>
+        img {
+            min-width: 200px;
+        }
+    </style>
+@endsection
